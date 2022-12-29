@@ -1,0 +1,21 @@
+name: Create PR
+
+on:
+  workflow_dispatch:
+
+env:
+  MILESTONE: ${{ github.event.inputs.new_version }}
+
+jobs:
+  create-pr:
+    name: Create PR
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Create the PR pointing to ${{ github.ref_name }}
+        run: |
+          gh pr create \
+            --title "Your title" \
+            --body 'Your body.' \
+            --label 'your label' \
+            --milestone $MILESTONE \
+            --base $GITHUB_REF_NAME
